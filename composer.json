@@ -1,0 +1,20 @@
+{
+    "name": "youness/prestashop-maker",
+    "description": "CLI generator for PrestaShop modules",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Youness\\PrestashopMaker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "onlyouness",
+            "email": "elyouness765@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/console": "^7.4"
+    }
+}
