@@ -4,10 +4,10 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Youness\PrestashopMaker\Command\MakeEntityCommand;
+use Youness\PrestashopMaker\Command\MakeModuleCommand;
 
 $app = new Application();
 
-$app->add(new MakeEntityCommand());
+$app->add(new MakeModuleCommand());
 
 $app->run();
