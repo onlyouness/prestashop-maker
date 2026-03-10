@@ -15,6 +15,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/console": "^7.4"
+        "symfony/console": "^7.4",
+        "symfony/filesystem": "^7.4"
     }
 }
