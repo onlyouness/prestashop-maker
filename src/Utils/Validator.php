@@ -2,18 +2,18 @@
 
 namespace Youness\PrestashopMaker\Utils;
 
-class ModuleValidator
+class Validator
 {
     public function __construct(private string $modulesDir) {}
 
     public function validateName(?string $name): string
     {
         if (empty($name)) {
-            throw new \RuntimeException('Module name cannot be empty.');
+            throw new \RuntimeException('Name cannot be empty.');
         }
 
         if (!preg_match('/^[a-zA-Z0-9_]+$/', $name)) {
-            throw new \RuntimeException('Module name must contain only letters, numbers, and underscores.');
+            throw new \RuntimeException('Name must contain only letters, numbers, and underscores.');
         }
         $name = strtolower($name);
         return $name;
