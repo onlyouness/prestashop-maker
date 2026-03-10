@@ -16,6 +16,13 @@
     "minimum-stability": "stable",
     "require": {
         "symfony/console": "^7.4",
+<<<<<<< HEAD
         "symfony/filesystem": "^7.4"
+=======
+        "symfony/filesystem": "^7.4",
+        "symfony/dependency-injection": "^7.4",
+        "symfony/config": "^7.4",
+        "symfony/yaml": "^7.4"
+>>>>>>> 735fd677ac292b3e6162ecd81f08ccb08fe47b67
     }
 }

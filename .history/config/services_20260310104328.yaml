@@ -1,0 +1,22 @@
+services:
+    # Default configuration for services in this file
+    _defaults:
+        autowire: true      # Automatically injects dependencies based on type-hints
+        autoconfigure: true 
+
+    Youness\PrestashopMaker\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+
+    Youness\PrestashopMaker\Generator\GeneratorManager:
+        arguments:
+            $generators: !tagged_iterator app.generator
+
+    Youness\PrestashopMaker\Generator\EntityGenerator:
+        tags: ['app.generator']
+
+    Youness\PrestashopMaker\Generator\ControllerGenerator:
+        tags: ['app.generator']
+
+    Youness\PrestashopMaker\Generator\ModuleGenerator:
+        tags: ['app.generator']

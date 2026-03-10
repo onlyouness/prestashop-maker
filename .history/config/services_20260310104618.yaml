@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # This is what's missing!
+    _instanceof:
+        Symfony\Component\Console\Command\Command:
+            tags: ['console.command']
+
+    # Your PSR-4 discovery
+    Youness\PrestashopMaker\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'

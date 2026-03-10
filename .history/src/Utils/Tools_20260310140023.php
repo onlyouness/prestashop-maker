@@ -1,0 +1,51 @@
+<?php
+
+namespace Youness\PrestashopMaker\Utils;
+
+class Tools
+{
+    public function __construct(private string $modulesDir) {}
+    public static function asPascalCase(string $name): string
+    {
+        $name = str_replace(['-', '_'], ' ', $name);
+        $name = ucwords($name);
+        $name = str_replace(' ', '', $name);
+
+        return $name;
+    }
+    public static function dd(array $i)
+    {
+        var_dump([$i]);
+        die;
+    }
+    public static function getModules(string $dir_path): array
+    {
+        $folders = array();
+        $items = scandir($dir_path);
+
+        foreach ($items as $item) {
+            if ($item != '.' && $item != '..') {
+                $item_path = $dir_path . DIRECTORY_SEPARATOR . $item;
+                if (is_dir($item_path)) {
+                    $folders[] = $item;
+                }
+            }
+        }
+
+        return $folders;
+    }
+    public static function getModuleNamespace(string $modulePath): string
+    {
+        $composerPath = $modulePath . DIRECTORY_SEPARATOR . 'composer.json';
+        if (!file_exists($composerPath)) {
+            return 'Prestashop\\Module';
+        }
+
+        $composerData = json_decode(file_get_contents($composerPath), true);
+
+        $psr4 = $composerData['autoload']['psr-4'] ?? [];
+        $namespace = array_key_first($psr4) ?? 'Prestashop\\Module\\';
+
+        return rtrim($namespace, '\\');
+    }
+}

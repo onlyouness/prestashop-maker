@@ -1,0 +1,25 @@
+<?php
+
+namespace Youness\PrestashopMaker\Utils;
+
+class Tools
+{
+    public function __construct(private readonly $modulesDir)
+    {}
+    public static function asPascalCase(string $name): string
+    {
+        $name = str_replace(['-', '_'], ' ', $name);
+        $name = ucwords($name);
+        $name = str_replace(' ', '', $name);
+
+        return $name;
+    }
+    public static function dd(array $i)
+    {
+        var_dump([$i]);
+        die;
+    }
+    public function getModules(){
+        $this->modulesDir
+    }
+}

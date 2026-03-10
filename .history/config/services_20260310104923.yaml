@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    _instanceof:
+        # This tells the container: "If it looks like a Command, tag it!"
+        Symfony\Component\Console\Command\Command:
+            tags: ["console.command"]
+
+    # CRITICAL: Is this path correct?
+    # If services.yaml is in /config, and your code is in /src:
+    Youness\PrestashopMaker\:
+        resource: "../src/*"
+        exclude: "../src/{Entity,Tests,Kernel.php}"

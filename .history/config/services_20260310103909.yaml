@@ -1,0 +1,25 @@
+services:
+    # Default configuration for services in this file
+    _defaults:
+        autowire: true      # Automatically injects dependencies based on type-hints
+        autoconfigure: true # Automatically registers commands and tags services
+
+    # Register all classes in the src/ directory as services
+    Youness\PrestashopMaker\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+
+    # The Generator Manager needs all generators
+    Youness\PrestashopMaker\Generator\GeneratorManager:
+        arguments:
+            $generators: !tagged_iterator app.generator
+
+    # Tag our specific generators
+    Youness\PrestashopMaker\Generator\EntityGenerator:
+        tags: ['app.generator']
+
+    Youness\PrestashopMaker\Generator\ControllerGenerator:
+        tags: ['app.generator']
+
+      Youness\PrestashopMaker\Generator\Generator:
+        tags: ['app.generator']

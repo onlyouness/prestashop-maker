@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Youness\PrestashopMaker\Utils\Tools;
+
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+$loader->load('services.yaml');
+
+$container->compile();
+
+$app = new Application('PrestaShop Modern Maker', '1.0.0');
+
+$commandIds = $container->findTaggedServiceIds('console.command');
+Tools::dd([$co])
+
+foreach ($commandIds as $id => $tags) {
+    /** @var Command $command */
+    $command = $container->get($id);
+    $app->add($command);
+}
+$app->run();
