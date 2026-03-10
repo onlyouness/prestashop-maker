@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        # This makes it easier to debug
+        public: true
+
+    _instanceof:
+        Symfony\Component\Console\Command\Command:
+            tags: ["console.command"]
+
+    # Use the absolute parameter we just defined
+    Youness\PrestashopMaker\:
+        resource: "%kernel.project_dir%/src/*"
+        exclude: "%kernel.project_dir%/src/{Entity,Tests,Kernel.php}"

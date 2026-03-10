@@ -1,0 +1,13 @@
+{
+    "name": "prestashop/ps_pos",
+    "description": "my module description",
+    "autoload": {
+        "psr-4": {
+            "Prestashop\\PsPos\\": "src/"
+        }
+    },
+    "config": {
+        "prepend-autoloader": false
+    },
+    "type": "prestashop-module"
+}

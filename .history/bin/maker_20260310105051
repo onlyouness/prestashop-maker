@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass;
+
+// 1. You MUST initialize the object first!
+$container = new ContainerBuilder();
+
+// 2. Now you can call methods on it
+$container->addCompilerPass(new RegisterAutoconfigureAttributesPass());
+
+// 3. Load your configuration
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+$loader->load('services.yaml');
+
+// 4. Compile the container to process attributes and tags
+$container->compile();
+// This will tell you if the Container even 'sees' your class
+if (!$container->has(Youness\PrestashopMaker\Command\MakeModuleCommand::class)) {
+    echo "\n[ERROR] The Container does not recognize your Command class. Check your paths in services.yaml!\n";
+    die();
+}
+
+// 5. Build the Console Application
+$app = new Application('PrestaShop Modern Maker', '1.0.0');
+
+// 6. Register your commands from the DI container
+$commandIds = $container->findTaggedServiceIds('console.command');
+
+foreach ($commandIds as $id => $tags) {
+    $command = $container->get($id);
+    $app->add($command);
+}
+
+// 7. Fire it up
+$app->run();

@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Compiler\RegisterAutoconfigureAttributesPass;
+
+$baseDir = dirname(__DIR__); // This gets the absolute path to /prestashop-maker
+
+$container = new ContainerBuilder();
+// Store the path in the container so we can use it in YAML
+$container->setParameter('kernel.project_dir', $baseDir); 
+
+$container->addCompilerPass(new RegisterAutoconfigureAttributesPass());
+
+$loader = new YamlFileLoader($container, new FileLocator($baseDir . '/config'));
+$loader->load('services.yaml');
+
+// 5. Build the Console Application
+$app = new Application('PrestaShop Modern Maker', '1.0.0');
+
+// 6. Register your commands from the DI container
+$commandIds = $container->findTaggedServiceIds('console.command');
+
+foreach ($commandIds as $id => $tags) {
+    $command = $container->get($id);
+    $app->add($command);
+}
+
+// 7. Fire it up
+$app->run();

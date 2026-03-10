@@ -1,0 +1,13 @@
+{
+    "name": "prestashop/ps_toto",
+    "description": "my module description",
+    "autoload": {
+        "psr-4": {
+            "Prestashop\\PsToto\\": "src/"
+        }
+    },
+    "config": {
+        "prepend-autoloader": false
+    },
+    "type": "prestashop-module"
+}

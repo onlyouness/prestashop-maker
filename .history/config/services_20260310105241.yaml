@@ -1,0 +1,14 @@
+# config/services.yaml
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    _instanceof:
+        Symfony\Component\Console\Command\Command:
+            tags: ["console.command"]
+
+    # Try this specific path syntax
+    Youness\PrestashopMaker\:
+        resource: "../src/"
+        exclude: "../src/{Entity,Tests,Kernel.php}"

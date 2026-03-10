@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Youness\PrestashopMaker\Command\MakeModuleCommand;
+use Youness\PrestashopMaker\Generator\ModuleGenerator;
+
+$app = new Application();
+
+$moduleGenerator = new ModuleGenerator();
+
+$app->add(new MakeModuleCommand($moduleGenerator));
+
+$app->run();

@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Youness\PrestashopMaker\Command\MakeModuleCommand;
+use Youness\PrestashopMaker\Generator\ModuleGenerator;
+
+// 1. Initialize the Container
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../config'));
+$loader->load('services.yaml');
+
+// 2. Important: Compile the container
+// This processes the tags and builds the dependency graph
+$container->compile();
+
+$app = new Application('PrestaShop Modern Maker', '1.0.0');
+
+// 3. Automatically find and add all Commands registered in DI
+$commandIds = $container->findTaggedServiceIds('console.command');
+
+foreach ($commandIds as $id => $tags) {
+    /** @var Command $command */
+    $command = $container->get($id);
+    $app->add($command);
+}
