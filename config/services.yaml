@@ -7,6 +7,8 @@ services:
         bind:
             $templateDir: "%kernel.project_dir%/templates"
             $modulesDir: "%kernel.project_dir%/modules"
+            $dbPrefix: "ps_"
+            $mysqlEngine: "inno_db"
 
     _instanceof:
         Symfony\Component\Console\Command\Command:

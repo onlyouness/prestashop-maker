@@ -23,13 +23,24 @@ class {{class_name}} extends Module
     }
     public function install(): bool
     {
-        return parent::install() 
+        return parent::install() && 
+        $this->installDb()
             {{registrations}};
     }
 
     public function uninstall(): bool
     {
-        return parent::uninstall();
+        return  
+        $this->unInstallDb() && parent::uninstall();
+    }
+
+    public function installDb() : bool
+    {
+        return true;
+    }
+    public function unInstallDb() : bool
+    {
+        return true;
     }
 
 {{methods}}

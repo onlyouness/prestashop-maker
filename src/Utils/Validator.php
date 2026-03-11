@@ -15,7 +15,7 @@ class Validator
         if (!preg_match('/^[a-zA-Z0-9_]+$/', $name)) {
             throw new \RuntimeException('Name must contain only letters, numbers, and underscores.');
         }
-        $name = strtolower($name);
+        // $name = strtolower($name);
         return $name;
     }
 
