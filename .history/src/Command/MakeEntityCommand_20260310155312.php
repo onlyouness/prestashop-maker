@@ -4,7 +4,6 @@ namespace Youness\PrestashopMaker\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -30,9 +29,7 @@ class MakeEntityCommand extends Command
 
         $module = $io->choice('Select which module', Tools::getModules($this->modulesDir));
         $entityName = $io->ask('Give Your Entity a name (e.g. Cat)', null, function ($entityName) {
-            if(empty($entityName)){
-                return RuntimeException('Enter the entity name please');
-            }
+            
             return $entityName;
         });
 

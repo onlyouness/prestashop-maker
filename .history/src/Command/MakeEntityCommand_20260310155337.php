@@ -31,7 +31,7 @@ class MakeEntityCommand extends Command
         $module = $io->choice('Select which module', Tools::getModules($this->modulesDir));
         $entityName = $io->ask('Give Your Entity a name (e.g. Cat)', null, function ($entityName) {
             if(empty($entityName)){
-                return RuntimeException('Enter the entity name please');
+                return RuntimeException
             }
             return $entityName;
         });

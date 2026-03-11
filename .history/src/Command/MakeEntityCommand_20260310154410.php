@@ -4,7 +4,6 @@ namespace Youness\PrestashopMaker\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -30,17 +29,14 @@ class MakeEntityCommand extends Command
 
         $module = $io->choice('Select which module', Tools::getModules($this->modulesDir));
         $entityName = $io->ask('Give Your Entity a name (e.g. Cat)', null, function ($entityName) {
-            if(empty($entityName)){
-                return RuntimeException('Enter the entity name please');
-            }
-            return $entityName;
+            return;
         });
 
         $fields = [];
         $io->section('Add fields to your entity (press enter to stop)');
 
         while (true) {
-            $fieldName = $io->ask("Add a field name (e.g. title), <fg=yellow>Press enter to stop</>");
+            $fieldName = $io->ask('Field name (e.g. title)');
             if (!$fieldName) break;
 
             $type = $io->choice('Field type', ['string', 'integer', 'text', 'boolean', 'datetime'], 'string');
@@ -53,8 +49,7 @@ class MakeEntityCommand extends Command
             'fields' => $fields,
             'namespace' => Tools::getModuleNamespace($this->modulesDir . '/' . $module),
             'entity_name' => $entityName,
-            'table_name' => strtolower($module . '_' . $entityName),
-            'entity_name_lower' => strtolower($entityName),
+            'strtolower($moduleName . '_' . $entityName)',
         ]);
         return Command::SUCCESS;
     }

@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Youness\PrestashopMaker\Generator\GeneratorManager;
+use Youness\PrestashopMaker\Utils\ModuleValidator;
 use Youness\PrestashopMaker\Utils\Tools;
 use Youness\PrestashopMaker\Utils\Validator;
 
