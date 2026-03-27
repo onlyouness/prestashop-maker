@@ -1,0 +1,7 @@
+Fundamentals: basic OOP principles (you’d be surprised by the number of candidates who don’t know the difference between private and protected and why one would declare a class as final!), the lifecycle of a request, the different ways to handle caching and their pros and cons, the difference between unit, functional, and integration tests, how to test your services and controllers, what is a controller anyway, some Doctrine ORM and query builder.
+
+Advanced: know your dependency injection (service tags, compiler passes, etc), firewall stuff, DBMS vs document stores, etc. Honestly as an interviewer it often comes down to discussing a problem and how the candidate would solve it. I don’t see the point in drilling them on niche stuff, as most of the things can be learned on the job. I would not reject a candidate who has no idea how to work with the Workflow component, it would be stupid.
+
+Pro-tip: if you have that level of access, try to learn more about their current architecture and roadmap. If you learn that they have recently hired a new tech lead who’s all about DDD, you’ll get points for knowing what the heck an aggregate root is. If you learn that they’re migrating to microservices, you better know how to orchestrate those harmoniously.
+
+And as others said, get up to date with what’s happening with Symfony. It always comes handy.
