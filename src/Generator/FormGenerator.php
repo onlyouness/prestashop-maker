@@ -21,25 +21,51 @@ class FormGenerator extends AbstractGenerator
         $formFields = "";
         $useStatements = "use Symfony\\Component\\Form\\FormBuilderInterface;\nuse Symfony\\Component\\OptionsResolver\\OptionsResolver;\n";
         $usedTypes = [];
+        $hasTranslatable = false;
 
         foreach ($fields as $fieldName => $config) {
             $symfonyType = $this->mapToSymfonyFormType($config['type']);
             $typeClass = $this->getTypeClassName($symfonyType);
 
-            if (!in_array($symfonyType, $usedTypes)) {
-                $usedTypes[] = $symfonyType;
-                $useStatements .= "use {$symfonyType};\n";
+            if ($config['translatable']) {
+                $hasTranslatable = true;
+
+                // Add the inner type use statement
+                if (!in_array($symfonyType, $usedTypes)) {
+                    $usedTypes[] = $symfonyType;
+                    $useStatements .= "use {$symfonyType};\n";
+                }
+
+                $options = [];
+                $options[] = "'label' => \$this->trans('" . ucfirst(str_replace('_', ' ', $fieldName)) . "', 'Modules." . Tools::asPascalCase($moduleName) . ".Admin')";
+                $options[] = "'type' => {$typeClass}::class";
+                if (!$config['required']) {
+                    $options[] = "'required' => false";
+                }
+
+                $optionsStr = implode(",\n                ", $options);
+
+                $formFields .= "            ->add('{$fieldName}', TranslatableType::class, [\n                {$optionsStr},\n            ])\n";
+            } else {
+                if (!in_array($symfonyType, $usedTypes)) {
+                    $usedTypes[] = $symfonyType;
+                    $useStatements .= "use {$symfonyType};\n";
+                }
+
+                $options = [];
+                $options[] = "'label' => \$this->trans('" . ucfirst(str_replace('_', ' ', $fieldName)) . "', 'Modules." . Tools::asPascalCase($moduleName) . ".Admin')";
+                if (!$config['required']) {
+                    $options[] = "'required' => false";
+                }
+
+                $optionsStr = implode(",\n                ", $options);
+
+                $formFields .= "            ->add('{$fieldName}', {$typeClass}::class, [\n                {$optionsStr},\n            ])\n";
             }
+        }
 
-            $options = [];
-            $options[] = "'label' => \$this->trans('" . ucfirst(str_replace('_', ' ', $fieldName)) . "', 'Modules." . Tools::asPascalCase($moduleName) . ".Admin')";
-            if (!$config['required']) {
-                $options[] = "'required' => false";
-            }
-
-            $optionsStr = implode(",\n                ", $options);
-
-            $formFields .= "            ->add('{$fieldName}', {$typeClass}::class, [\n                {$optionsStr},\n            ])\n";
+        if ($hasTranslatable) {
+            $useStatements .= "use PrestaShopBundle\\Form\\Admin\\Type\\TranslatableType;\n";
         }
 
         // --- Build configuration constants and get/set logic ---
