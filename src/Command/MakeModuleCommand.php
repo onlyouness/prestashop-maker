@@ -62,7 +62,7 @@ class MakeModuleCommand extends Command
         }
 
         $this->generatorManager->process('module', $name, [
-            'class_name'  => $pascaleName,
+            'class_name'  => ucfirst($name),
             'name'        => $name,
             'author'      => $author,
             'description' => $description,

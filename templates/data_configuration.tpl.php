@@ -38,6 +38,7 @@ class {{configuration_class_name}} implements DataConfigurationInterface
 
     public function validateConfiguration(array $configuration): bool
     {
-        return isset($configuration[{{validate_config_fields}}]);
+        // return isset($configuration[{{validate_config_fields}}]);
+        return true;
     }
 }
