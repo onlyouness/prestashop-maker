@@ -167,7 +167,8 @@ class FormGenerator extends AbstractGenerator
     {
         return match ($type) {
             'integer' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\IntegerType',
-            'text' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+            // 'text' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextareaType',
+            'text' => 'PrestaShopBundle\\Component\\Admin\\Type\\FormattedTextareaType',
             'choice' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\ChoiceType',
             'datetime' => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\DateTimeType',
             default => 'Symfony\\Component\\Form\\Extension\\Core\\Type\\TextType',
