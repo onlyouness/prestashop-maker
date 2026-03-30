@@ -24,6 +24,7 @@ class FormGenerator extends AbstractGenerator
         $hasTranslatable = false;
 
         foreach ($fields as $fieldName => $config) {
+
             $symfonyType = $this->mapToSymfonyFormType($config['type']);
             $typeClass = $this->getTypeClassName($symfonyType);
 
@@ -60,6 +61,7 @@ class FormGenerator extends AbstractGenerator
 
                 $optionsStr = implode(",\n                ", $options);
 
+
                 $formFields .= "            ->add('{$fieldName}', {$typeClass}::class, [\n                {$optionsStr},\n            ])\n";
             }
         }
@@ -94,6 +96,8 @@ class FormGenerator extends AbstractGenerator
             'namespace' => $namespace . '\\Form',
             'module_pascal' => Tools::asPascalCase($moduleName),
         ]);
+
+        // TODO: add if long text the html array to be value true in set 
 
         $configData = array_merge($data, [
             'configuration_class_name' => $formName . 'DataConfiguration',

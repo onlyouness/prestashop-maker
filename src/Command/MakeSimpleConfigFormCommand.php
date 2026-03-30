@@ -51,6 +51,7 @@ class MakeSimpleConfigFormCommand extends Command
             $fields[$fieldName]['translatable'] = $translatable;
             $fields[$fieldName]['default'] = $default;
         }
+        // TODO: ask if the type is long text is it html
         $this->generatorManager->process('form', $module, [
             'namespace'   => $namespace,
             'form_name' => $formName,
